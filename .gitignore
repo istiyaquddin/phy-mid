@@ -1,0 +1,5 @@
+# Exclude media and documents
+*.pdf
+*.png
+*.jpeg
+*.jpg

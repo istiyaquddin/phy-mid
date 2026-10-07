@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHYSICS-1101: Mechanics, Gravitation & Quantum Physics - IIUC Complete Solution Manual</title>
+  <meta name="description" content="Complete verified exam solution manual for IIUC PHYSICS-1101 covering Dynamics of Rigid Bodies, Gravity & Gravitation, and Quantum Mechanics with full mathematical proofs and step-by-step problem solutions.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- KaTeX for High Quality Math Typography -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar(false)"></div>
+
+  <!-- Floating Quick Restore Button (visible when sidebar is hidden) -->
+  <button class="sidebar-float-restore" id="sidebarFloatRestore" onclick="toggleSidebar(true)" title="Show Sidebar (Ctrl+B)">
+    <i class="fa-solid fa-bars-staggered"></i>
+    <span>Menu</span>
+  </button>
+
+  <div id="app">
+    <!-- Collapsible Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-group">
+          <div class="logo-icon"><i class="fa-solid fa-atom"></i></div>
+          <div class="logo-text">
+            <h2>PHYSICS-1101</h2>
+            <p>IIUC Exam Portal</p>
+          </div>
+        </div>
+        <!-- Inner Collapse Button -->
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" onclick="toggleSidebar(false)" title="Hide Sidebar (Ctrl+B)">
+          <i class="fa-solid fa-angles-left"></i>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Navigation</div>
+        <a class="nav-item active" id="nav-all" onclick="filterCategory('all')">
+          <i class="fa-solid fa-border-all"></i>
+          <span>All Modules</span>
+          <span class="badge" id="badge-all">29</span>
+        </a>
+        <a class="nav-item" href="../index.html" style="color:var(--accent-amber);">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Switch to MATH-1101</span>
+        </a>
+        
+        <div class="nav-section-title">Midterm Chapters</div>
+        <a class="nav-item" id="nav-rigid-body" onclick="filterCategory('rigid-body')">
+          <i class="fa-solid fa-compact-disc"></i>
+          <span>1. Dynamics of Rigid Body</span>
+          <span class="badge badge-sub" id="badge-rigid-body">10 Topics</span>
+        </a>
+        <a class="nav-item" id="nav-gravity" onclick="filterCategory('gravity')">
+          <i class="fa-solid fa-earth-americas"></i>
+          <span>2. Gravity & Gravitation</span>
+          <span class="badge badge-sub" id="badge-gravity">21 Topics</span>
+        </a>
+        <a class="nav-item" id="nav-quantum" onclick="filterCategory('quantum')">
+          <i class="fa-solid fa-microscope"></i>
+          <span>3. Quantum Mechanics</span>
+          <span class="badge badge-sub" id="badge-quantum">11 Topics</span>
+        </a>
+
+        <div class="nav-section-title">Quick Action Tools</div>
+        <a class="nav-item" onclick="toggleAllCards(false)">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Expand All Cards</span>
+        </a>
+        <a class="nav-item" onclick="toggleAllCards(true)">
+          <i class="fa-solid fa-compress"></i>
+          <span>Collapse All Cards</span>
+        </a>
+        <a class="nav-item" onclick="openModal('formula-modal')">
+          <i class="fa-solid fa-square-root-variable"></i>
+          <span>Physics Constants & Sheet</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-badge-info">
+          <i class="fa-solid fa-circle-check" style="color:var(--accent-emerald);"></i>
+          <span>Official Syllabus & Board Papers (45 Topics)</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+      <!-- Top Application Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <!-- Sidebar Show/Hide Toggle Button -->
+          <button class="sidebar-toggle-btn" id="sidebarToggleBtn" onclick="toggleSidebar()" title="Toggle Left Sidebar (Ctrl+B)">
+            <i class="fa-solid fa-bars-staggered" id="sidebarToggleIcon"></i>
+          </button>
+          
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search physics theory, formulas, gravity, torque, or quantum problems..." oninput="handleSearch()">
+            <button class="search-clear-btn" id="searchClearBtn" onclick="clearSearch()" title="Clear Search" style="display:none;">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn btn-secondary" onclick="openModal('formula-modal')">
+            <i class="fa-solid fa-book-bookmark"></i>
+            <span class="btn-text">Constants Sheet</span>
+          </button>
+          <button class="btn btn-primary" onclick="window.print()">
+            <i class="fa-solid fa-print"></i>
+            <span class="btn-text">Print Notes</span>
+          </button>
+          <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+            <i class="fa-solid fa-moon" id="theme-icon"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Container -->
+      <main class="content-container">
+        <!-- Hero Banner -->
+        <section class="hero-banner">
+          <div class="hero-top-row">
+            <div class="hero-badge">
+              <i class="fa-solid fa-atom"></i> Department of CSE | IIUC University Standard
+            </div>
+            <div class="shortcut-tip" title="Use keyboard shortcuts">
+              <kbd>Ctrl</kbd> + <kbd>B</kbd> Toggle Sidebar
+            </div>
+          </div>
+
+          <h1>PHYSICS-1101 Master Solution Manual</h1>
+          <p>Complete verified university solutions for <strong>Dynamics of Rigid Bodies</strong>, <strong>Gravity & Gravitation</strong>, and <strong>Introductory Quantum Mechanics</strong>. Features <strong>🎯 Easy Exam Definitions (Quick Memorization)</strong> alongside formal textbook definitions, line-by-line numerical math working, bilingual Bangla intuition, KaTeX typography, and native vector diagrams.</p>
+
+          <!-- Study Tracker Progress Bar -->
+          <div class="study-progress-card">
+            <div class="study-progress-header">
+              <div class="study-progress-title">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Midterm Study Tracker:</span>
+                <strong id="studyProgressText">0 of 42 Topics Mastered (0%)</strong>
+              </div>
+              <button class="study-reset-btn" onclick="resetMasteryProgress()" title="Reset mastered progress">
+                <i class="fa-solid fa-rotate-left"></i> Reset
+              </button>
+            </div>
+            <div class="study-progress-track">
+              <div class="study-progress-fill" id="studyProgressBar" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- Interactive Topic Filter Chips -->
+          <div class="filter-chips-container">
+            <div class="filter-group-label">Chapters:</div>
+            <button class="filter-chip active" id="chip-all" onclick="filterCategory('all')">
+              <i class="fa-solid fa-border-all"></i> All Chapters
+            </button>
+            <button class="filter-chip" id="chip-rigid-body" onclick="filterCategory('rigid-body')">
+              <i class="fa-solid fa-compact-disc"></i> Ch-1: Rigid Body
+            </button>
+            <button class="filter-chip" id="chip-gravity" onclick="filterCategory('gravity')">
+              <i class="fa-solid fa-earth-americas"></i> Ch-2: Gravity
+            </button>
+            <button class="filter-chip" id="chip-quantum" onclick="filterCategory('quantum')">
+              <i class="fa-solid fa-microscope"></i> Ch-3: Quantum
+            </button>
+          </div>
+
+          <!-- Content-Type Sub-Filter Pills -->
+          <div class="filter-chips-container sub-filters">
+            <div class="filter-group-label">Type:</div>
+            <button class="type-pill active" id="type-all" onclick="filterType('all')">
+              All Types
+            </button>
+            <button class="type-pill" id="type-definition" onclick="filterType('definition')">
+              📖 Definitions (CLO-1)
+            </button>
+            <button class="type-pill" id="type-derivation" onclick="filterType('derivation')">
+              📐 Derivations (CLO-2)
+            </button>
+            <button class="type-pill" id="type-numerical" onclick="filterType('numerical')">
+              🧮 Numerical Maths (CLO-3)
+            </button>
+            <button class="type-pill" id="type-board-exam" onclick="filterType('board-exam')">
+              🏛️ Board Exam Papers (2022–2026)
+            </button>
+            <div class="filter-divider"></div>
+            <button class="filter-chip utility-chip" onclick="toggleAllCards(false)" title="Expand all solution cards">
+              <i class="fa-solid fa-folder-open"></i> Expand All
+            </button>
+            <button class="filter-chip utility-chip" onclick="toggleAllCards(true)" title="Collapse all solution cards">
+              <i class="fa-solid fa-folder-closed"></i> Collapse All
+            </button>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-square-check"></i></div>
+              <div class="stat-info">
+                <h4>45 Solved Topics</h4>
+                <p>Official Board Qs (2022–2026)</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-diagram-project"></i></div>
+              <div class="stat-info">
+                <h4>Native Vector</h4>
+                <p>Physics SVG Diagrams</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-language"></i></div>
+              <div class="stat-info">
+                <h4>Bilingual Intuition</h4>
+                <p>English + বাংলা সহজ ভাষা</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Dynamic Questions Wrapper -->
+        <div id="questions-wrapper">
+          <!-- Rendered via app.js -->
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer>
+        <p><strong>International Islamic University Chittagong (IIUC)</strong> - Department of Computer Science & Engineering</p>
+        <p style="margin-top:0.4rem; color:var(--text-dim);">PHYSICS-1101 Portal &copy; Autumn 2026. Fully verified with course lecture notes & problem sheets.</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Physics Formula & Constants Modal -->
+  <div class="modal-overlay" id="formula-modal" onclick="if(event.target===this) closeModal('formula-modal')">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('formula-modal')" title="Close Modal"><i class="fa-solid fa-xmark"></i></button>
+      <h2 style="margin-bottom: 1.25rem; color: var(--accent-primary);"><i class="fa-solid fa-atom"></i> Master Physics Constants & Conversion Formulas</h2>
+      <div id="formula-modal-body">
+        <!-- Rendered via app.js from data.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
